@@ -1,0 +1,74 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+body {
+    background-color: #2B2B2B;
+    transition: background-color 0.5s ease;
+}
+
+.wrapper {
+    overflow: hidden;
+    display: flex;
+    min-height: 100%;
+}
+
+
+.loading-screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+  
+.loading-name {
+    font-family: Inter;
+    font-weight: 500;
+    font-size: 50px;
+    transform: skew(-10deg);
+    color: #E6E6E6;
+}
+
+span {
+    font-weight: 600;
+    color: #E81C5A;
+}
+
+.loading-dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
+.dot {
+    width: 18px;
+    height: 18px;
+    background-color: #c5c5c5;
+    border-radius: 50%;
+    margin: 0 8px;
+    opacity: 0.4;
+    animation: dot-animation 1s infinite;
+}
+  
+@keyframes dot-animation {
+    0% { opacity: 0.4; }
+    50% { opacity: 1; }
+    100% { opacity: 0.4; }
+}
+  
+.dot1 {
+    animation-delay: 0.2s;
+}
+  
+.dot2 {
+    animation-delay: 0.4s;
+}
+  
+.dot3 {
+    animation-delay: 0.6s;
+}
