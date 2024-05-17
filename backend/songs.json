@@ -1,0 +1,26 @@
+[
+    {
+        "name": "Hotel California",
+        "artist": "Eagles",
+        "album": "Hotel California",
+        "duration": "6:30",
+        "url": "songs/eagles-hotel-california.mp3",
+        "img": "songs/img/hotel-california.jpg"
+    },
+    {
+        "name": "Ром",
+        "artist": "Король и Шут",
+        "album": "Продавец кошмаров",
+        "duration": "2:43",
+        "url": "songs/korol-i-shut-rom.mp3",
+        "img": "songs/img/prodavec-koshmarov.jpg"
+    },
+    {
+        "name": "Bowie",
+        "artist": "Би-2 & Prague Metropolitan Symph.",
+        "album": "Би-2 & Prague Metropolitan Symph.",
+        "duration": "5:41",
+        "url": "songs/bi-2-bowie.mp3",
+        "img": "songs/img/bi-2-prague.jpg"
+    }
+]
