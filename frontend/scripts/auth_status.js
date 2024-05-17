@@ -12,11 +12,9 @@ async function checkLoginStatus() {
         const data = await response.json();
 
         if (data.isLoggedIn) {
-            // Если пользователь авторизован, скрываем кнопку входа и показываем фотографию пользователя
             document.getElementById('loginButton').style.display = 'none';
             document.getElementById('userIcon').style.display = 'flex';
         } else {
-            // Если пользователь не авторизован, скрываем фотографию пользователя и показываем кнопку входа
             document.getElementById('loginButton').style.display = 'flex';
             document.getElementById('userIcon').style.display = 'none';
         }
