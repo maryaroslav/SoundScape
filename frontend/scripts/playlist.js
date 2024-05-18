@@ -1,3 +1,67 @@
+document.addEventListener('DOMContentLoaded', async () => {
+   const playlistList = document.getElementById('playlist-list');
+
+   if (!playlistList) {
+      console.error('Element not found');
+      return;
+   }
+
+   try {
+      const response = await fetch('/api/playlists');
+      const playlists = await response.json();
+
+      playlists.forEach(playlist => {
+         const li = document.createElement('li');
+         li.classList.add('playlist-name');
+         li.dataset.playlistId = playlist._id;
+
+         const div = document.createElement('div');
+         div.classList.add('playlist-info');
+
+         const playlistTitel = document.createElement('p');
+         playlistTitel.textContent = playlist.name;
+         div.appendChild(playlistTitel);
+
+         const playlistNameP = document.createElement('p');
+         playlistNameP.classList.add('playlist-name-p');
+         playlistNameP.textContent = `Playlist • ${playlist.author || 'Unknown'}`;
+         div.appendChild(playlistNameP);
+
+         const deleteButton = document.createElement('button');
+         deleteButton.textContent = '✖';
+         deleteButton.classList.add('playlist-delete', 'playlist-delete-button');
+         deleteButton.dataset.playlistId = playlist._id;
+
+         li.appendChild(div);
+         li.appendChild(deleteButton);
+         playlistList.appendChild(li);
+      });
+
+      document.querySelectorAll('playlist-delete-button').forEach(button => {
+         button.addEventListener('click', async (event) => {
+            const playlistId = event.target.dataset.playlistId;
+      
+            try {
+               const deleteResponse = await fetch(`/api/playlists/${playlistId}`, {
+                  method: 'DELETE'
+               });
+               if (!deleteResponse.ok) {
+                  throw new Error('Failed to delete playlist');
+               }
+               const playlistItem = document.querySelector(`li[data-playlist-id="${playlistId}"]`);
+               if (playlistItem) {
+                  playlistItem.remove();
+               }
+            } catch (error) {
+               console.error('Error deleting playlist', error);
+            }
+         });
+      });
+   } catch (error) {
+      console.error('Error fetching playlists:', error)
+   }
+});
+
 document.getElementById('addPlaylistBtnClose').addEventListener('click', function () {
     document.getElementById('customDialogPlaylist').style.display = 'none';
     document.body.style.overflow = '';
@@ -66,7 +130,8 @@ document.getElementById('addPlaylistCustom').addEventListener('click', function 
         let playlistId = generatePlaylistId();
         let playlist = {
            name: playlistName,
-           user: currentUser._id
+           user: currentUser._id,
+           author: currentUser.username
         };
 
         savePlaylistToDatabase(playlist, function (err, savedPlaylist) {
@@ -78,18 +143,54 @@ document.getElementById('addPlaylistCustom').addEventListener('click', function 
            let playlistList = document.getElementById('playlist-list');
            let newPlaylistItem = document.createElement('li');
            newPlaylistItem.className = 'playlist-name';
-           let newPlaylistLink = document.createElement('a');
-           newPlaylistLink.href = '/playlist/' + savedPlaylist._id;
-           newPlaylistLink.textContent = playlistName;
-           newPlaylistItem.appendChild(newPlaylistLink);
            newPlaylistItem.dataset.playlistId = savedPlaylist._id;
-           playlistList.insertBefore(newPlaylistItem, playlistList.lastElementChild);
+
+           const div = document.createElement('div');
+           div.classList.add('playlist-info');
+
+           const playlistTitel = document.createElement('p');
+           playlistTitel.textContent = playlistName;
+           div.appendChild(playlistTitel);
+
+           const playlistNameP = document.createElement('p');
+           playlistNameP.classList.add('playlist-name-p');
+           playlistNameP.textContent = `Playlist • ${currentUser.username}`;
+           div.appendChild(playlistNameP);
+
+           const deleteButton = document.createElement('button');
+           deleteButton.textContent = '✖';
+           deleteButton.classList.add('playlist-delete', 'playlist-delete-button');
+           deleteButton.dataset.playlistId = savedPlaylist._id;
+
+           newPlaylistItem.appendChild(div);
+           newPlaylistItem.appendChild(deleteButton);
+           playlistList.insertBefore(newPlaylistItem, playlistList.lastElementChild)
+
            document.getElementById('customDialogPlaylist').style.display = 'none';
            document.body.style.overflow = "";
            let blurOverlay = document.querySelector('.blur-overlay');
            if (blurOverlay) {
               blurOverlay.parentNode.removeChild(blurOverlay);
            }
+
+           deleteButton.addEventListener('click', async (event) => {
+            const playlistId = event.target.dataset.playlistId;
+
+            try {
+               const deleteResponse = await fetch(`/api/playlists/${playlistId}`, {
+                  method: 'DELETE'
+               });
+               if (!deleteResponse.ok) {
+                  throw new Error('Failed to delete playlist');
+               }
+               const playlistItem = document.querySelector(`li[data-playlist-id="${playlistId}"]`);
+               if (playlistItem) {
+                  playlistItem.remove();
+               }
+            } catch (error) {
+               console.error("Error deleting playlist:", error)
+            }
+           })
         });
      });
   }

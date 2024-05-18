@@ -19,21 +19,3 @@ router.get('/', async (req, res) => {
 }); 
 
 module.exports = router; 
-
-// const app = express();
-
-// app.get('/search', async (req, res) => {
-//     const searchTerm = req.query.term;
-
-//     try {
-//         // Поиск песен по имени, исполнителю или альбому (можно расширить)
-//         const songs = await Song.find({
-//             $text: { $search: searchTerm }
-//         });
-
-//         res.json(songs);
-//     } catch (err) {
-//         console.log(err);
-//         res.status(500).send('Oshibka pri poiske pesen')
-//     }
-// });

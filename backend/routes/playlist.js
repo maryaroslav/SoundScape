@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const Playlist = require('../models/playlist');
+const User = require('../models/user');
 
 router.get('/playlists', async (req, res) => {
     try {
-        const playlists = await Playlist.find({ userId: req.user._id });
+        const playlists = await Playlist.find({ userId: req.user._id }).select('name author');
         res.json(playlists);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -48,7 +49,11 @@ router.post('/', async (req, res) => {
         if (!user) {
             return res.status(401).send('Необходимо авторизоваться');
         }
-        const playlistData = { ...req.body, user: user._id };
+        const playlistData = {
+             ...req.body, 
+             user: user._id,
+             author: user.username
+             };
         const newPlaylist = new Playlist(playlistData);
         const savedPlaylist = await newPlaylist.save();
         res.json(savedPlaylist);
@@ -64,7 +69,6 @@ router.post('/:id/add-song', async (req, res) => {
         if (!user) {
             return res.status(401).send('Необходимо авторизоваться');
         }
-        // Реализация добавления песни в плейлист
     } catch (error) {
         console.error('Ошибка при добавлении песни в плейлист:', error);
         res.status(500).send('Ошибка при добавлении песни в плейлист');

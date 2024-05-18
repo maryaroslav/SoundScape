@@ -94,6 +94,7 @@ body {
     margin: 13px;
     display: flex;
     flex-direction: column;
+    z-index: 1;
 }
 .control-panel__container, .playlist__container, .playlist-library {
     position: relative;
@@ -164,10 +165,61 @@ body {
     vertical-align: middle;
 }
 
-.playlist-name {
+/* .playlist-name {
     display: flex;
     align-items: center;
+} */
+
+.playlist-button-add {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-left: 65px;
+    font-size: 15px;
 }
+
+.playlist-name {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.playlist-info {
+    flex: 1; 
+}
+
+.playlist-name:hover {
+    background-color: #3a3a3a;
+    border-radius: 10px;
+}
+
+.playlist-name-p {
+    font-weight: 500;
+    font-size: 13px;
+    color: #acacac;
+}
+
+.playlist-delete-button {
+    background: none;
+    border: none;
+    font-size: inherit;
+    color: inherit;
+    cursor: pointer;
+    display: none;
+    padding-top: 20px;
+    cursor: pointer;
+    position: absolute;
+    top: 16%;
+    right: 10px;
+}
+
+.playlist-name:hover .playlist-delete-button  {
+    display: block;
+}
+
+
 
 .playlist-name img {
 }
@@ -363,13 +415,6 @@ body {
     font-size: 13px;
     font-weight: 600;
     color: #E6E6E6;
-}
-
-
-
-.footer {
-    /* width: 1463px;
-    height: 80px; */
 }
 
 
