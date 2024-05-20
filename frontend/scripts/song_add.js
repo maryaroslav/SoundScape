@@ -1,22 +1,35 @@
+// const searchInput = document.getElementById('search-term');
+// const songTable = document.getElementById('song-table-body');
+// const galleryContainer = document.querySelector('.gallery__container');
+
 const searchInput = document.getElementById('search-term');
 const songTable = document.getElementById('song-table-body');
 const galleryContainer = document.querySelector('.gallery__container');
 
-searchInput.addEventListener('keyup', () => {
-  const searchTerm = searchInput.value.trim();
-  if (searchTerm) {
-    searchSongs(searchTerm);
+searchInput.addEventListener('keyup', (event) => {
+  if (event.key === 'Enter') {
+    const searchTerm = searchInput.value.trim();
+    if (searchTerm) {
+      searchSong(searchTerm);
+    }
   }
 });
 
-async function searchSongs(searchTerm) {
-  const response = await fetch(`/api/songs/search?term=${searchTerm}`);
-  const songs = await response.json();
-  displaySearchResults(songs);
+async function searchSong(searchTerm) {
+  try {
+    const response = await fetch(`/api/songs/search?term=${searchTerm}`);
+    if (!response.ok) {
+      throw new Error('Failed to fetch search results');
+    }
+    const songs = await response.json();
+    displaySearchResults(songs);
+  } catch (error) {
+    console.error('Error searching songs:', error)
+  }
 }
 
 function displaySearchResults(songs) {
-  songTable.innerHTML = ''; // Очистить таблицу перед добавлением новых строк
+  songTable.innerHTML = '';
   galleryContainer.style.display = 'none';
   songs.forEach(song => {
     const row = document.createElement('tr');
@@ -35,6 +48,12 @@ function displaySearchResults(songs) {
   });
 }
 
+async function searchSongs(searchTerm) {
+  const response = await fetch(`/api/songs/search?term=${searchTerm}`);
+  const songs = await response.json();
+  displaySearchResults(songs);
+}
+
 function createCell(text) {
   const cell = document.createElement('td');
   cell.textContent = text;
@@ -47,7 +66,7 @@ function createSongNameCell(song) {
   songNameOverlay.classList.add('song-name-overlay');
 
   const songImage = document.createElement('img');
-  songImage.src = song.image || 'songs/img/prodavec-koshmarov.jpg'; // Заменить на ваш URL изображения по умолчанию
+  songImage.src = song.image || 'songs/img/';
   songImage.alt = song.name;
   songNameOverlay.appendChild(songImage);
 

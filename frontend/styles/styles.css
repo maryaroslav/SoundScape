@@ -165,19 +165,6 @@ body {
     vertical-align: middle;
 }
 
-/* .playlist-name {
-    display: flex;
-    align-items: center;
-} */
-
-.playlist-button-add {
-    position: relative;
-    display: flex;
-    align-items: center;
-    margin-left: 65px;
-    font-size: 15px;
-}
-
 .playlist-name {
     position: relative;
     display: flex;

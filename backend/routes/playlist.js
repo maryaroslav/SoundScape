@@ -75,4 +75,24 @@ router.post('/:id/add-song', async (req, res) => {
     }
 });
 
+router.delete('/:id', async (req, res) => {
+    try {
+        const user = req.session.user;
+        if (!user) {
+            return res.status(401).send('Необходимо авторизоваться');
+        }
+        console.log(`Attempting to delete playlist with ID: ${req.params.id} for user: ${user._id}`);
+        const playlist = await Playlist.findOneAndDelete({ _id: req.params.id, user: user._id });
+        if (!playlist) {
+            console.log('Playlist not found or user not authorized to delete');
+            return res.status(404).send('Playlist ne najden');
+        }
+        console.log('Playlist deleted successfully');
+        res.status(204).send();
+    } catch (error) {
+        console.error('Ошибка при удалении плейлиста:', error)
+        res.status(500).send('Ошибка при удалении плейлиста')
+    }
+})
+
 module.exports = router;

@@ -19,6 +19,7 @@ app.use(session({
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
 app.use('/auth', authRouter);
 app.use('/api/songs/search', songRouter)
 app.use('/api/playlists', playlistRouter);

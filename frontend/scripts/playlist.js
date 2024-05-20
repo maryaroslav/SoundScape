@@ -18,6 +18,10 @@ document.addEventListener('DOMContentLoaded', async () => {
          const div = document.createElement('div');
          div.classList.add('playlist-info');
 
+         div.addEventListener('click', () => {
+            window.location.href = `/playlist/${playlist._id}`;
+         });
+
          const playlistTitel = document.createElement('p');
          playlistTitel.textContent = playlist.name;
          div.appendChild(playlistTitel);
@@ -37,15 +41,19 @@ document.addEventListener('DOMContentLoaded', async () => {
          playlistList.appendChild(li);
       });
 
-      document.querySelectorAll('playlist-delete-button').forEach(button => {
+      document.querySelectorAll('.playlist-delete-button').forEach(button => {
          button.addEventListener('click', async (event) => {
+            event.stopPropagation();
             const playlistId = event.target.dataset.playlistId;
+            console.log(`Attempting to delete playlist with ID: ${playlistId}`);
       
             try {
                const deleteResponse = await fetch(`/api/playlists/${playlistId}`, {
                   method: 'DELETE'
                });
                if (!deleteResponse.ok) {
+                  const errorText = await deleteResponse.text();
+                  console.error('Error deleting playlist', errorText);
                   throw new Error('Failed to delete playlist');
                }
                const playlistItem = document.querySelector(`li[data-playlist-id="${playlistId}"]`);
