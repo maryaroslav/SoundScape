@@ -602,6 +602,13 @@ body {
     /* height: auto;
     max-height: 900px; */
 }
+
+.search-main-view__row {
+    flex: 1 1 auto;
+    /* padding: 30px 30px 0 0; */
+    overflow-y: auto;
+}
+
 .song-row {
     /* display: flex; */
     gap: 20px;
@@ -744,7 +751,7 @@ body {
     display: flex;
     align-items: center;
     padding: 18px;
-    margin: 30px 0 0 0;
+    margin: 30px 30px;
     border-radius: 28px;
     background: #191919;
     transition: box-shadow 0.25s;
@@ -776,14 +783,13 @@ body {
 }
 
 .gallery__container {
-    margin-top: 30px;
-    margin-bottom: 55px;
+    margin: 40px;
 }
 
 .gallery-card {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
-    gap: 17px;
+    gap: 20px;
 }
 
 .card {
@@ -854,7 +860,6 @@ body {
     margin-right: 10px;
     vertical-align: middle;
     display: inline-block;
-
 }
 
 .song-name {
@@ -907,8 +912,6 @@ body {
 .song-table tbody tr:hover .song-name-img {
     opacity: 0.7;
 }
-
-
 
 
 .playlist-detail__container {

@@ -1,18 +1,26 @@
-// const searchInput = document.getElementById('search-term');
-// const songTable = document.getElementById('song-table-body');
-// const galleryContainer = document.querySelector('.gallery__container');
-
-const searchInput = document.getElementById('search-term');
 const songTable = document.getElementById('song-table-body');
 const galleryContainer = document.querySelector('.gallery__container');
 
-searchInput.addEventListener('keyup', (event) => {
-  if (event.key === 'Enter') {
-    const searchTerm = searchInput.value.trim();
-    if (searchTerm) {
-      searchSong(searchTerm);
-    }
+document.addEventListener('DOMContentLoaded', () => {
+  const searchForm = document.getElementById('search-form');
+
+  if (!searchForm) {
+    return;
   }
+
+  searchForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    
+    const searchTermInput = document.getElementById('search-term');
+    if (!searchTermInput) {
+      return;
+    }
+
+    const searchTerm = searchTermInput.value.trim();
+    if (searchTerm) {
+      await searchSong(searchTerm);
+    }
+  });
 });
 
 async function searchSong(searchTerm) {
@@ -24,7 +32,7 @@ async function searchSong(searchTerm) {
     const songs = await response.json();
     displaySearchResults(songs);
   } catch (error) {
-    console.error('Error searching songs:', error)
+    console.error('Error searching songs:', error);
   }
 }
 
@@ -48,12 +56,6 @@ function displaySearchResults(songs) {
   });
 }
 
-async function searchSongs(searchTerm) {
-  const response = await fetch(`/api/songs/search?term=${searchTerm}`);
-  const songs = await response.json();
-  displaySearchResults(songs);
-}
-
 function createCell(text) {
   const cell = document.createElement('td');
   cell.textContent = text;
@@ -62,24 +64,27 @@ function createCell(text) {
 
 function createSongNameCell(song) {
   const cell = document.createElement('td');
+  cell.classList.add('song-name');
   const songNameOverlay = document.createElement('div');
   songNameOverlay.classList.add('song-name-overlay');
 
   const songImage = document.createElement('img');
-  songImage.src = song.image || 'songs/img/';
+  songImage.src = song.img;
   songImage.alt = song.name;
+  songImage.classList.add('song-name-img');
   songNameOverlay.appendChild(songImage);
 
   const playButton = document.createElement('button');
   playButton.classList.add('play-icon');
-  playButton.innerHTML = '<img src="img/svg/play-logo.svg" alt="Play">';
+  playButton.innerHTML = '<img src="/img/svg/play-logo.svg" alt="Play">';
   songNameOverlay.appendChild(playButton);
 
-  const songName = document.createElement('span');
-  songName.classList.add('song-name');
-  songName.textContent = song.name;
-  songNameOverlay.appendChild(songName);
-
   cell.appendChild(songNameOverlay);
+
+  const songName = document.createElement('span');
+  // songName.classList.add('song-name');
+  songName.textContent = song.name;
+  cell.appendChild(songName);
+
   return cell;
 }

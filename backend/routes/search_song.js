@@ -19,7 +19,7 @@ router.get('/', async (req, res) => {
         res.json(songs)
     } catch (error) {
         console.error('Error searching songs:', error);
-        res.status(500),json({ message: 'Error searching songs' })
+        res.status(500).json({ message: 'Error searching songs' })
     }
     
 }); 
