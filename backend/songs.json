@@ -22,5 +22,13 @@
         "duration": "5:41",
         "url": "songs/bi-2-bowie.mp3",
         "img": "songs/img/bi-2-prague.jpg"
+    },
+    {
+        "name": "Время есть, a денег нет",
+        "artist": "Кино",
+        "album": "Легенда",
+        "duration": "4:08",
+        "url": "songs/kino-vremay-est-deneg-net.mp3",
+        "img": "songs/img/kino.jpg"
     }
 ]

@@ -1,3 +1,5 @@
+import { handlePlayButtonClick } from './player.js';
+
 const songTable = document.getElementById('song-table-body');
 const galleryContainer = document.querySelector('.gallery__container');
 
@@ -79,10 +81,13 @@ function createSongNameCell(song) {
   playButton.innerHTML = '<img src="/img/svg/play-logo.svg" alt="Play">';
   songNameOverlay.appendChild(playButton);
 
+  playButton.addEventListener('click', () => {
+    handlePlayButtonClick(song, playButton);
+  })
+
   cell.appendChild(songNameOverlay);
 
   const songName = document.createElement('span');
-  // songName.classList.add('song-name');
   songName.textContent = song.name;
   cell.appendChild(songName);
 
