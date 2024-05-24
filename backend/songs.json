@@ -30,5 +30,45 @@
         "duration": "4:08",
         "url": "songs/kino-vremay-est-deneg-net.mp3",
         "img": "songs/img/kino.jpg"
+    },
+    {
+        "name": "Can't Stop",
+        "artist": "Red Hot Chili Peppers",
+        "album": "By the Way",
+        "duration": "4:29",
+        "url": "songs/r-h-c-p-cant-stop.mp3",
+        "img": "songs/img/red-hot-chili-peppers.jpg"
+    },
+    {
+        "name": "Californication",
+        "artist": "Red Hot Chili Peppers",
+        "album": "Californication",
+        "duration": "5:29",
+        "url": "songs/r-h-c-p-californication.mp3",
+        "img": "songs/img/red-hot-chili-peppers.jpg"
+    },
+    {
+        "name": "Dark Necessities",
+        "artist": "Red Hot Chili Peppers",
+        "album": "The Getaway",
+        "duration": "5:02",
+        "url": "songs/r-h-c-p-dark-necessities.mp3",
+        "img": "songs/img/red-hot-chili-peppers.jpg"
+    },
+    {
+        "name": "Otherside",
+        "artist": "Red Hot Chili Peppers",
+        "album": "Californication",
+        "duration": "4:15",
+        "url": "songs/r-h-c-p-otherside.mp3",
+        "img": "songs/img/red-hot-chili-peppers.jpg"
+    },
+    {
+        "name": "Snow (Hey Oh)",
+        "artist": "Red Hot Chili Peppers",
+        "album": "Stadium Arcadium",
+        "duration": "5:35",
+        "url": "/songs/r-h-c-p-snow.mp3",
+        "img": "/songs/img/red-hot-chili-peppers.jpg"
     }
 ]
