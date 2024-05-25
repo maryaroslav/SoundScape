@@ -443,6 +443,7 @@ body {
     gap: 5px;
 }
 
+
 .player-controls__left {
     display: flex;
     gap: 3px;
@@ -457,11 +458,12 @@ body {
     display: flex;
 }
 .player-controls-play {
-    display: none;
+    display: flex;
 }
 .button-play {
 }
 .player-controls-pause {
+    display: none;
 }
 .button-pause {
 }

@@ -1,7 +1,8 @@
-import { handlePlayButtonClick } from './player.js';
+import { handlePlayButtonClick, setSongs } from './player.js';
 
 const songTable = document.getElementById('song-table-body');
 const galleryContainer = document.querySelector('.gallery__container');
+let fetchedSongs = [];
 
 document.addEventListener('DOMContentLoaded', () => {
   const searchForm = document.getElementById('search-form');
@@ -32,7 +33,9 @@ async function searchSong(searchTerm) {
       throw new Error('Failed to fetch search results');
     }
     const songs = await response.json();
+    fetchedSongs = songs;
     displaySearchResults(songs);
+    setSongs(songs);
   } catch (error) {
     console.error('Error searching songs:', error);
   }
