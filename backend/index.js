@@ -1,7 +1,6 @@
 const express = require('express');
 const path = require('path');
 const session = require('express-session');
-const mongoose= require('mongoose');
 const authRouter = require('./routes/auth');
 const songRouter = require('./routes/search_song');
 const playlistRouter = require('./routes/playlist');
@@ -75,22 +74,13 @@ app.post('/api/playlists', async (req, res) => {
 
 app.get('/protected-route', async (req, res) => {
   if (!req.session.user) {
-    return res.status(401).send('Необходимо авторизоваться');
+    return res.status(401).send('You need to log in');
 }
     const user = req.session.user;
-    console.log(`Текущий пользователь: ${user.username} (${user.email})`);
-    res.send('Доступ к защищенному маршруту');
+    console.log(`Current user: ${user.username} (${user.email})`);
+    res.send('Accessing a secure route');
 });
 
-// router.get('/auth/logout', (req, res) => {
-//     req.session.destroy();
-//     res.redirect('/');
-// });
-
-// app.get('/search', (req, res) => {
-//     const filePath = path.join(__dirname, '../frontend', 'search.html')
-//     res.sendFile(filePath);
-// });
 
 app.listen(3000, () => {
     console.log('Server is running on port 3000.');

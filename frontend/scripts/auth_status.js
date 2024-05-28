@@ -1,4 +1,5 @@
 const userStatusElement = document.getElementById('user-status');
+const playlistContainer = document.querySelector('.playlist__container');
 
 async function checkLoginStatus() {
     const response = await fetch('/auth/logged', {
@@ -14,9 +15,12 @@ async function checkLoginStatus() {
         if (data.isLoggedIn) {
             document.getElementById('loginButton').style.display = 'none';
             document.getElementById('userIcon').style.display = 'flex';
+            playlistContainer.style.display = 'block';
+            await loadPlaylists();
         } else {
             document.getElementById('loginButton').style.display = 'flex';
             document.getElementById('userIcon').style.display = 'none';
+            playlistContainer.style.display = 'none';
         }
     } else {
         console.error('Error', response.statusText);
@@ -36,15 +40,18 @@ async function loadPlaylists() {
             const playlists = await response.json();
             displayPlaylists(playlists);
         } else {
-            console.error('Ошибка загрузки плейлистов', response.statusText);
+            console.error('Error loading playlists', response.statusText);
         }
     } catch (error) {
-        console.error('Ошибка:', error);
+        console.error('Error:', error);
     }
 }
 
 function displayPlaylists(playlists) {
     const playlistListElement = document.getElementById('playlist-list');
+    while (playlistListElement.firstChild) {
+        playlistListElement.removeChild(playlistListElement.firstChild);
+    }
     
     playlists.forEach(playlist => {
         const listItem = document.createElement('li');

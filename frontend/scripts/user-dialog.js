@@ -25,15 +25,15 @@ window.onload = function() {
                     if (response.ok) {
                         window.location.href = '/';
                     } else {
-                        alert('Ошибка при выходе.');
+                        alert('Exit error.');
                     }
                 })
                 .catch(error => {
                     console.error('Ошибка:', error);
-                    alert('Ошибка при выходе.');
+                    alert('Exit error.');
                 });
         });
     } else {
-        console.error('Элемент с id "logoutButton" не найден.');
+        console.error('The element with id "logoutButton" was not found.');
     }
 };

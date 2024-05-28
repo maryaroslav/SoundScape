@@ -24,13 +24,13 @@ router.post('/sign-in', async (req, res) => {
     const user = await User.findOne({ username });
 
     if (!user) {
-        return res.status(404).send('Polzovatel nenajden.');
+        return res.status(404).send('User not found');
     };
 
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {
-        return res.status(401).send('Parol nevernyji.');
+        return res.status(401).send('Wrong password.');
     };
 
     req.session.user = user;
@@ -41,7 +41,7 @@ router.post('/sign-in', async (req, res) => {
 router.get('/logout', (req, res) => {
     req.session.destroy((err) => {
         if (err) {
-            return res.status(500).send('Ошибка при выходе.');
+            return res.status(500).send('Exit error.');
         }
         res.redirect('/');
     });
